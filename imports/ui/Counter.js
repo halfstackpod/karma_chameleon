@@ -1,24 +1,27 @@
 import React from 'react';
 
 class Counter extends React.Component {
-    state = { points: 0 };
+    state = { karma: 0 };
 
     addPoint = () => {
-        let newTotal = this.state.points + 1;
-        this.setState({ points: newTotal });
+        if (this.state.karma < 5) {
+            this.setState({ karma: this.state.karma += 1 });
+        }
     }
 
     subtractPoint = () => {
-        let newTotal = this.state.points - 1;
-        this.setState({ points: newTotal });
+        if (this.state.karma > -5) {
+            this.setState({ karma: this.state.karma -= 1 });
+        }
     }
 
     render() {
         return (
             <div className="counter-wrap">
                 <button className="subtract" onClick={this.subtractPoint}>-</button>
-                <p className="points-adding">{this.state.points}</p>
+                <p className="karma-adding">{this.state.karma}</p>
                 <button className="add" onClick={this.addPoint}>+</button>
+                <button className="apply">Apply</button>
             </div>
         );
     }
