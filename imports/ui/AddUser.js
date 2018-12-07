@@ -8,7 +8,7 @@ export default class AddUser extends React.Component {
         Users.insert({
             name: userName,
             alias: alias || null,
-            karma: this.props.score
+            karma: this.props.karma
         });
     }
 
