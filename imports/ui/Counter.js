@@ -17,20 +17,47 @@ class Counter extends React.Component {
         }
     }
 
-    updateKarma = () => {
-        let inc = +this.state.karma;
-        Users.update( this.props.user._id, { $inc: { karma: inc} });
-        this.setState({karma : 0});
+    // updateKarma = () => {
+    //     let inc = +this.state.karma;
+    //     Users.update( this.props.user._id, { $inc: { karma: inc} });
+    //     this.setState({karma : 0});
+    // }
+
+    handleSubmit(e) {
+        let textBox = e.target.textKarma.value;
+
+        e.preventDefault();
+
+        e.target.textKarma.value = "";
+
+        let Plus = textBox.split("+").length - 1;
+        let Minus = textBox.split("-").length - 1;
+        let Sum = Plus - Minus;
+
+        let inc = this.state.karma + Sum;
+
+        if (inc <= 5) {
+            Users.update( this.props.user._id, { $inc: { karma: inc } });
+            this.setState({karma: 0});
+        } else {
+            this.setState({ karma: 0 });
+        }
     }
 
     render() {
         return (
-            <div className="counter-wrap">
-                <button className="subtract" onClick={this.subtractPoint}>-</button>
+            <form className="counter-wrap" onSubmit={this.handleSubmit.bind(this)}>
+                <button className="subtract" type="button" onClick={this.subtractPoint}>-</button>
+                <input type="text" name="textKarma" placeholder="Limit 5"></input>
+                <button className="add" type="button" onClick={this.addPoint}>+</button>
+
+                <button className="apply" type="submit">Apply</button>
+                
                 <p className="karma-adding">{this.state.karma}</p>
-                <button className="add" onClick={this.addPoint}>+</button>
-                <button className="apply" onClick={this.updateKarma}>Apply</button>
-            </div>
+                <button type="button" onClick={() => {Users.remove(this.props.user._id)}}>Remove Player</button>
+                <hr></hr>
+                <div></div>
+            </form>
         );
     }
 }

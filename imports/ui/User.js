@@ -17,7 +17,7 @@ class User extends React.Component {
             <div className="user-card">
                 <div className="user-bio">
                     {/* {this.renderUser.bind(this)} */}
-                    <p>{this.props.user.name} has {this.props.user.karma}</p>
+                    <p>{this.props.user.alias} has {this.props.user.karma}</p>
                 </div>
                 <Counter user={this.props.user}/>
             </div>

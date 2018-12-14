@@ -7,7 +7,7 @@ export default class AddUser extends React.Component {
     handleInsertion(userName, alias) {
         Users.insert({
             name: userName,
-            alias: alias || null,
+            alias: alias || userName,
             karma: this.props.karma
         });
     }
