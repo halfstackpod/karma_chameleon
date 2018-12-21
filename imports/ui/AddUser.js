@@ -1,14 +1,16 @@
 import React from 'react';
 
-import {Users} from './../api/users';
+import {userKarma} from '../api/userKarma';
+import { Meteor } from 'meteor/meteor';
 
 export default class AddUser extends React.Component {
 
     handleInsertion(userName, alias) {
-        Users.insert({
+        userKarma.insert({
             name: userName,
             alias: alias || userName,
-            karma: this.props.karma
+            karma: this.props.karma,
+            owner: Meteor.userId()
         });
     }
 

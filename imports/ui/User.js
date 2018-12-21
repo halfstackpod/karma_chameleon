@@ -4,19 +4,10 @@ import Counter from './Counter';
 class User extends React.Component {
     state = { karma: this.props.user.karma };
 
-    // renderUser() {
-    //     if (this.props.user.alias === null) {
-    //         return <p>{this.props.user.name} has {this.props.user.karma}</p>
-    //     } else {
-    //         return <p>{this.props.user.alias} has {this.props.user.karma}</p>
-    //     }
-    // }
-
     render() {
         return (
             <div className="user-card">
                 <div className="user-bio">
-                    {/* {this.renderUser.bind(this)} */}
                     <p>{this.props.user.alias} has {this.props.user.karma}</p>
                 </div>
                 <Counter user={this.props.user}/>
