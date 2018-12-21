@@ -22,7 +22,7 @@ class Counter extends React.Component {
         }
     }
 
-    handleSubmit(e) {
+    handleSubmit = (e) => {
         let textBox = e.target.textKarma.value;
 
         e.preventDefault();
@@ -43,6 +43,10 @@ class Counter extends React.Component {
         }
     }
 
+    handleInputValue = () => {
+        return this.state.karma === 0 ? "Limit 5" : this.state.karma;
+    }
+
     render() {
 
         var isOwner = this.checkOwner();
@@ -50,7 +54,7 @@ class Counter extends React.Component {
         return (
             <form className="counter-wrap" onSubmit={this.handleSubmit.bind(this)}>
                 <button className="subtract" type="button" onClick={this.subtractPoint}>-</button>
-                <input type="text" name="textKarma" placeholder="Limit 5"></input>
+                <input type="text" value={this.handleInputValue()} name="textKarma"></input>
                 <button className="add" type="button" onClick={this.addPoint}>+</button>
 
                 <button className="apply" type="submit">Apply</button>

@@ -1,9 +1,9 @@
 import React from 'react';
-import User from './User';
+import UserCard from './UserCard';
 
 const UserList = (props) => {
     return props.users.map((user) => {
-        return <User key={user._id} user={user} />;
+        return <UserCard key={user._id} user={user} />;
     });
 };
 
