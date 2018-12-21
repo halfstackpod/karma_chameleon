@@ -54,7 +54,7 @@ class Counter extends React.Component {
         return (
             <form className="counter-wrap" onSubmit={this.handleSubmit.bind(this)}>
                 <button className="subtract" type="button" onClick={this.subtractPoint}>-</button>
-                <input type="text" value={this.handleInputValue()} name="textKarma"></input>
+                <input type="text" defaultValue={this.handleInputValue()} name="textKarma"></input>
                 <button className="add" type="button" onClick={this.addPoint}>+</button>
 
                 <button className="apply" type="submit">Apply</button>
