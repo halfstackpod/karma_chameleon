@@ -1,7 +1,10 @@
 import { Meteor } from 'meteor/meteor';
-import {Users} from './../imports/api/users';
+import {userKarma} from './../imports/api/userKarma';
 
 Meteor.startup(() => {
   // code to run on server at startup
-  console.log(Users.find().fetch());
+  console.log("USER KARMA!");
+  console.log(userKarma.find().fetch());
+  console.log("Meteor users");
+  console.log(Meteor.users.find().fetch());
 });

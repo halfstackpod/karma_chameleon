@@ -11,17 +11,26 @@ const store = createStore(
     reducers,
     composeEnhancers(applyMiddleware(reduxThunk))
 );
+import AccountsWrapper from './AccountsWrapper.js';
 
 export default class App extends React.Component{
     render() {
         return (
             <Provider store={store}>
                 <div>
-                    <div>Hello</div>
-                    <AddUser karma={0}/>
-                    <UserList users={this.props.users}/>
+                    <div className="loginForm">
+                        <AccountsWrapper />
+                        <br></br>
+                        <br></br>
+                    </div>
+                    <div>
+                        <div>Hello</div>
+                        <AddUser karma={0}/>
+                        <UserList users={this.props.users}/>
+                    </div>
                 </div>
             </Provider>
+
         );
     }
 }

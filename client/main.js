@@ -4,12 +4,14 @@ import ReactDOM from 'react-dom';
 import {Meteor} from 'meteor/meteor';
 import {Tracker} from 'meteor/tracker';
 
-import {Users} from './../imports/api/users';
+import {userKarma} from './../imports/api/userKarma';
+
+import '../imports/startup/accounts-config.js';
 import App from './../imports/ui/App';
 
 Meteor.startup(() => {
   Tracker.autorun(() => {
-    let users = Users.find({}).fetch();
-    ReactDOM.render(<App users={users}/>, document.getElementById('app'));
+    let userKarmaList = userKarma.find({}).fetch();
+    ReactDOM.render(<App users={userKarmaList}/>, document.getElementById('app'));
   });
 });

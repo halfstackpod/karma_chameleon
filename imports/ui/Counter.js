@@ -1,9 +1,14 @@
 import React from 'react';
 
-import {Users} from './../api/users';
+import {userKarma} from '../api/userKarma';
+import { Meteor } from 'meteor/meteor';
 
 class Counter extends React.Component {
     state = { karma: 0 };
+
+    checkOwner = () => {
+        return this.props.user.owner === Meteor.userId();
+    }
 
     addPoint = () => {
         if (this.state.karma < 5) {
@@ -16,12 +21,6 @@ class Counter extends React.Component {
             this.setState({ karma: this.state.karma -= 1 });
         }
     }
-
-    // updateKarma = () => {
-    //     let inc = +this.state.karma;
-    //     Users.update( this.props.user._id, { $inc: { karma: inc} });
-    //     this.setState({karma : 0});
-    // }
 
     handleSubmit = (e) => {
         let textBox = e.target.textKarma.value;
@@ -37,7 +36,7 @@ class Counter extends React.Component {
         let inc = this.state.karma + Sum;
 
         if (inc <= 5) {
-            Users.update( this.props.user._id, { $inc: { karma: inc } });
+            userKarma.update( this.props.user._id, { $inc: { karma: inc } });
             this.setState({karma: 0});
         } else {
             this.setState({ karma: 0 });
@@ -49,6 +48,9 @@ class Counter extends React.Component {
     }
 
     render() {
+
+        var isOwner = this.checkOwner();
+
         return (
             <form className="counter-wrap" onSubmit={this.handleSubmit.bind(this)}>
                 <button className="subtract" type="button" onClick={this.subtractPoint}>-</button>
@@ -58,7 +60,10 @@ class Counter extends React.Component {
                 <button className="apply" type="submit">Apply</button>
                 
                 <p className="karma-adding">{this.state.karma}</p>
-                <button type="button" onClick={() => {Users.remove(this.props.user._id)}}>Remove Player</button>
+
+                { isOwner &&
+                    <button type="button" onClick={() => {userKarma.remove(this.props.user._id)}}>Remove Player</button>
+                }
                 <hr></hr>
                 <div></div>
             </form>
