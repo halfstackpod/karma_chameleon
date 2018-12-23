@@ -1,6 +1,8 @@
 import React from 'react';
+import TitleBar from './TitleBar';
 import AddUser from './AddUser';
 import UserList from './UserList';
+import OrderedView from './OrderedView';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose } from 'redux';
 import reduxThunk from 'redux-thunk';
@@ -24,9 +26,10 @@ export default class App extends React.Component{
                         <br></br>
                     </div>
                     <div>
-                        <div>Hello</div>
+                        <TitleBar />
                         <AddUser karma={0}/>
                         <UserList users={this.props.users}/>
+                        <OrderedView />
                     </div>
                 </div>
             </Provider>
