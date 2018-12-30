@@ -10,8 +10,8 @@ import '../imports/startup/accounts-config.js';
 import App from './../imports/ui/App';
 
 Meteor.startup(() => {
-  Tracker.autorun(() => {
-    let userKarmaList = userKarma.find({}).fetch();
-    ReactDOM.render(<App users={userKarmaList}/>, document.getElementById('app'));
-  });
+    Tracker.autorun(() => {
+        let userKarmaList = userKarma.find({}).fetch();
+        ReactDOM.render(<App karma={userKarmaList}/>, document.getElementById('app'));
+    });
 });

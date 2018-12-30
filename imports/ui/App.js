@@ -1,34 +1,80 @@
 import React from 'react';
-import AddUser from './AddUser';
-import UserList from './UserList';
+import reduxThunk from 'redux-thunk';
+
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose } from 'redux';
-import reduxThunk from 'redux-thunk';
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+
 import reducers from '../reducers';
+import Home from './Home';
+import NotFound from './NotFound';
+import Signup from './Signup';
+import Login from './Login';
+
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(
     reducers,
     composeEnhancers(applyMiddleware(reduxThunk))
 );
-import AccountsWrapper from './AccountsWrapper.js';
+
+const routes = [
+    {
+        path: "/",
+        exact: "true",
+        component: Login
+
+    },
+    {
+        path: "/signup",
+        component: Signup
+    },
+    {
+        path: "/home",
+        component: Home,
+        karma: "" //figure out how to get {this.props.karma} into this
+    },
+    {
+        path: "*",
+        component: NotFound
+    }
+];
+
+const RenderRoutes = (route) => {
+    return (
+        <Route path={route.path} render={props => (
+            <route.component {...props} routes={route.routes} />
+        )}/>
+    );
+}
 
 export default class App extends React.Component{
+    
     render() {
         return (
-            <Provider store={store}>
-                <div>
-                    <div className="loginForm">
-                        <AccountsWrapper />
-                        <br></br>
-                        <br></br>
-                    </div>
-                    <div>
-                        <div>Hello</div>
-                        <AddUser karma={0}/>
-                        <UserList users={this.props.users}/>
-                    </div>
-                </div>
+            // {this.props.karma} is available. How to get into just /home component
+            <Provider store={store} >
+            
+                <Router >
+                        <Switch >
+                            {routes.map((route, i) => (
+                                <RenderRoutes key={route.path} {...route} />
+                            ))}
+
+                            {/* {routes.map( ({path, component:C}) => (
+                                <Route key={path} path={path} render={(props) => <C {...props} /> } />
+                            ))} */}
+
+                            {/* {routes.map( ({ path, component: C  }) => 
+                                (
+                                    <Route
+                                        path = {path}
+                                        render = {(props) =>  <C {...props} /> } 
+                                    />
+                                )
+                            )} */}
+                        </Switch>
+                </Router>
             </Provider>
 
         );
