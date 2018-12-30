@@ -1,6 +1,8 @@
 import React from 'react';
 import reduxThunk from 'redux-thunk';
 
+import TitleBar from './TitleBar';
+
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose } from 'redux';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
@@ -52,10 +54,10 @@ export default class App extends React.Component{
     
     render() {
         return (
-            // {this.props.karma} is available. How to get into just /home component
-            <Provider store={store} >
-            
-                <Router >
+
+            <Provider store={store}>
+                    <TitleBar />
+                    <Router >
                         <Switch >
                             {routes.map((route, i) => (
                                 <RenderRoutes key={route.path} {...route} />
@@ -74,9 +76,8 @@ export default class App extends React.Component{
                                 )
                             )} */}
                         </Switch>
-                </Router>
+                    </Router>
             </Provider>
-
         );
     }
 }

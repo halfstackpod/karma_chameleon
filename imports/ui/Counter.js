@@ -6,6 +6,10 @@ import { Meteor } from 'meteor/meteor';
 class Counter extends React.Component {
     state = { karma: 0 };
 
+    isKarma = (val) => {
+        return (val === "+" || val === "-");
+    }
+
     checkOwner = () => {
         return this.props.user.owner === Meteor.userId();
     }
@@ -24,14 +28,16 @@ class Counter extends React.Component {
 
     handleSubmit = (e) => {
         let textBox = e.target.textKarma.value;
-
         e.preventDefault();
-
         e.target.textKarma.value = "";
 
-        let Plus = textBox.split("+").length - 1;
-        let Minus = textBox.split("-").length - 1;
-        let Sum = Plus - Minus;
+        let Sum = 0;
+        if (this.isKarma(textBox.charAt(0))) {
+            textBox = textBox.substr(1);
+            let Plus = textBox.split("+").length - 1;
+            let Minus = textBox.split("-").length - 1;
+            Sum = Plus - Minus;
+        }
 
         let inc = this.state.karma + Sum;
 
