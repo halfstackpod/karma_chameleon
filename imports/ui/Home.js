@@ -1,9 +1,11 @@
 import React from 'react';
 
-import AddUser from './AddUser';
-import UserList from './UserList';
-import AccountsWrapper from './AccountsWrapper';
-import OrderedView from './OrderedView';
+import { userKarma } from "../api/userKarma";
+
+import AccountsWrapper from "./AccountsWrapper";
+import AddUser from './karmaController/AddUser';
+import UserList from './karmaController/UserList';
+import OrderedView from './karmaController/OrderedView';
 
 export default class Home extends React.Component{
     render() {
@@ -15,9 +17,12 @@ export default class Home extends React.Component{
                     <br></br>
                 </div>
                 <div>
-                    <div>Hello</div>
+                    <br/>
+                    <br/>
                     <AddUser karma={0}/>
-                    {/* <UserList users={this.props.karma}/> */}
+                    {/* <UserList users={userKarmaList}/> */}
+                    <br/>
+                    <br/>
                     <OrderedView />
                 </div>
             </div>

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {userKarma} from '../api/userKarma';
+import {userKarma} from '../../api/userKarma';
 import { Meteor } from 'meteor/meteor';
 
 export default class AddUser extends React.Component {

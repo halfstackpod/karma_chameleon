@@ -5,7 +5,9 @@ import TitleBar from './TitleBar';
 
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose } from 'redux';
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { Router, Route, Switch } from "react-router-dom";
+
+import History from './../api/history';
 
 import reducers from '../reducers';
 import Home from './Home';
@@ -42,6 +44,9 @@ const routes = [
     }
 ];
 
+const authPaths = ["/home"];
+const unAuthPaths = ["/", "/signup"];
+
 const RenderRoutes = (route) => {
     return (
         <Route path={route.path} render={props => (
@@ -57,27 +62,28 @@ export default class App extends React.Component{
 
             <Provider store={store}>
                     <TitleBar />
-                    <Router >
+                    <Router history={History}>
                         <Switch >
                             {routes.map((route, i) => (
                                 <RenderRoutes key={route.path} {...route} />
                             ))}
-
-                            {/* {routes.map( ({path, component:C}) => (
-                                <Route key={path} path={path} render={(props) => <C {...props} /> } />
-                            ))} */}
-
-                            {/* {routes.map( ({ path, component: C  }) => 
-                                (
-                                    <Route
-                                        path = {path}
-                                        render = {(props) =>  <C {...props} /> } 
-                                    />
-                                )
-                            )} */}
                         </Switch>
                     </Router>
             </Provider>
         );
+    }
+}
+
+export const AuthChange = function(authenticated) {
+    const path = window.location.pathname;
+    const isPrivate = authPaths.includes(path);
+    const isPublic = unAuthPaths.includes(path);
+
+    if (isPrivate && !authenticated ) {
+        console.log("Not Logged in - redirecting to login page");
+        History.push("/");
+    } else if (isPublic && authenticated) {
+        console.log("Logged in - redirecting to home page");
+        History.push("/home");
     }
 }

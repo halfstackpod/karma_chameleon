@@ -5,13 +5,18 @@ import {Meteor} from 'meteor/meteor';
 import {Tracker} from 'meteor/tracker';
 
 import {userKarma} from './../imports/api/userKarma';
+// const userKarmaList = userKarma.find({}).fetch();
 
 import '../imports/startup/accounts-config.js';
 import App from './../imports/ui/App';
+import { AuthChange } from "./../imports/ui/App";
+
+
+Tracker.autorun(() => {
+    const authenticated = !! Meteor.userId();
+    AuthChange(authenticated);
+});
 
 Meteor.startup(() => {
-    Tracker.autorun(() => {
-        let userKarmaList = userKarma.find({}).fetch();
-        ReactDOM.render(<App karma={userKarmaList}/>, document.getElementById('app'));
-    });
+        ReactDOM.render(<App />, document.getElementById('app'));
 });
