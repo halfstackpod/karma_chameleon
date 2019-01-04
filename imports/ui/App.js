@@ -36,7 +36,6 @@ const routes = [
     {
         path: "/home",
         component: Home,
-        karma: "" //figure out how to get {this.props.karma} into this
     },
     {
         path: "*",

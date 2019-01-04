@@ -25,3 +25,4 @@ accounts-github
 service-configuration
 github-config-ui
 google-config-ui
+react-meteor-data

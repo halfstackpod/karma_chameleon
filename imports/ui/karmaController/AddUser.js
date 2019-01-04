@@ -12,6 +12,8 @@ export default class AddUser extends React.Component {
             karma: this.props.karma,
             owner: Meteor.userId()
         });
+
+        // Meteor.users.update({ _id: Meteor.user()._id}, { $set: { hasKarma: true} });
     }
 
     handleSubmission(e) {
@@ -31,6 +33,9 @@ export default class AddUser extends React.Component {
     }
 
     render() {
+        //Todo if user has already created a karmaUser then return null
+        //see UserListContainer + UserList for info on how to set up tracker
+        //when autopublish is removed - required that we set up subscription to replace
         return (
             <div>
                 <form onSubmit={this.handleSubmission.bind(this)}>

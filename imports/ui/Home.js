@@ -4,9 +4,9 @@ import { userKarma } from "../api/userKarma";
 
 import AccountsWrapper from "./AccountsWrapper";
 import AddUser from './karmaController/AddUser';
-import UserList from './karmaController/UserList';
 import OrderedView from './karmaController/OrderedView';
 
+import UserListContainer from './karmaController/UserListContainer';
 export default class Home extends React.Component{
     render() {
         return (
@@ -20,7 +20,7 @@ export default class Home extends React.Component{
                     <br/>
                     <br/>
                     <AddUser karma={0}/>
-                    {/* <UserList users={userKarmaList}/> */}
+                    <UserListContainer />
                     <br/>
                     <br/>
                     <OrderedView />
