@@ -1,4 +1,4 @@
-import { CHANGE_KARMA } from './types';
+import { CHANGE_KARMA, FETCH_USERS } from './types';
 
 export const changeKarma = (newPoints) => {
     return {

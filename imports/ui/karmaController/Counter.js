@@ -4,7 +4,7 @@ import {userKarma} from '../../api/userKarma';
 import { Meteor } from 'meteor/meteor';
 
 class Counter extends React.Component {
-    state = { karma: 0 };
+    state = { karma: 0, message: 'Limit 5' };
 
     isKarma = (val) => {
         return (val === "+" || val === "-");
@@ -16,41 +16,53 @@ class Counter extends React.Component {
 
     addPoint = () => {
         if (this.state.karma < 5) {
-            this.setState({ karma: this.state.karma += 1 });
+            this.setState({ karma: this.state.karma += 1, message: this.state.karma });
         }
     }
 
     subtractPoint = () => {
         if (this.state.karma > -5) {
-            this.setState({ karma: this.state.karma -= 1 });
+            this.setState({ karma: this.state.karma -= 1, message: this.state.karma });
         }
     }
 
     handleSubmit = (e) => {
         let textBox = e.target.textKarma.value;
         e.preventDefault();
-        e.target.textKarma.value = "";
+        if (!isNaN(+textBox)) {
+            e.target.textKarma.value = "";
 
-        let Sum = 0;
-        if (this.isKarma(textBox.charAt(0))) {
-            textBox = textBox.substr(1);
-            let Plus = textBox.split("+").length - 1;
-            let Minus = textBox.split("-").length - 1;
-            Sum = Plus - Minus;
-        }
+            let sum = 0;
+            if (this.isKarma(textBox.charAt(0))) {
+                textBox = textBox.substr(1);
+                let plus = textBox.split("+").length - 1;
+                let minus = textBox.split("-").length - 1;
+                sum = plus - minus;
+            }
 
-        let inc = this.state.karma + Sum;
+            let inc = this.state.karma + sum;
 
-        if (inc <= 5) {
-            userKarma.update( this.props.user._id, { $inc: { karma: inc } });
-            this.setState({karma: 0});
-        } else {
-            this.setState({ karma: 0 });
-        }
+            if (inc <= 5 && inc >= -5) {
+                userKarma.update( this.props.user._id, { $inc: { karma: inc } });
+                this.setState({ karma: 0, message: 'Limit 5' });
+            } else {
+                this.setState({ karma: 0, message: 'Limit 5' });
+            }
+        }        
     }
 
-    handleInputValue = () => {
-        return this.state.karma === 0 ? "Limit 5" : this.state.karma;
+    handleInputValue = (event) => {
+        var currentValue = +event.target.value;
+
+        if (isNaN(currentValue)) {
+            this.setState({ karma: currentValue, message: event.target.value });
+        } else {
+            if (currentValue === 0) {
+                this.setState({ karma: 0, message: event.target.value });
+            } else {
+                this.setState({ karma: currentValue, message: currentValue });
+            }
+        }
     }
 
     render() {
@@ -59,16 +71,16 @@ class Counter extends React.Component {
 
         return (
             <form className="counter-wrap" onSubmit={this.handleSubmit.bind(this)}>
-                <button className="subtract" type="button" onClick={this.subtractPoint}>-</button>
-                <input type="text" defaultValue={this.handleInputValue()} name="textKarma"></input>
-                <button className="add" type="button" onClick={this.addPoint}>+</button>
+                <button className="subtract ui negative basic button" type="button" onClick={this.subtractPoint}>—</button>
+                <div className="ui input">
+                    <input type="text" value={this.state.message} onChange={this.handleInputValue} name="textKarma"></input>
+                </div>
+                <button className="add ui positive basic button" type="button" onClick={this.addPoint}>+</button>
 
-                <button className="apply" type="submit">Apply</button>
-                
-                <p className="karma-adding">{this.state.karma}</p>
+                <button className="apply ui primary button" type="submit">Apply</button>
 
                 { isOwner &&
-                    <button type="button" onClick={() => {userKarma.remove(this.props.user._id)}}>Remove Player</button>
+                    <button className="ui primary negative button" type="button" onClick={() => {userKarma.remove(this.props.user._id)}}>Remove Player</button>
                 }
                 <hr></hr>
                 <div></div>
