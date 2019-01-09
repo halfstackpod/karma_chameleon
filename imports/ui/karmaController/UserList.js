@@ -2,7 +2,7 @@ import React from 'react';
 import UserCard from './UserCard';
 
 const UserList = (props) => {
-    if (props.userKarmaList.length > 0) {
+    if (props.userKarmaList && props.userKarmaList.length > 0) {
         return props.userKarmaList.map((user) => {
             return <UserCard key={user._id} user={user} />;
         });

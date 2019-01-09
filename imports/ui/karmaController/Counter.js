@@ -43,7 +43,11 @@ class Counter extends React.Component {
             let inc = this.state.karma + sum;
 
             if (inc <= 5 && inc >= -5) {
-                userKarma.update( this.props.user._id, { $inc: { karma: inc } });
+                let toUpdate = {
+                    _id: this.props.user._id,
+                    inc
+                }
+                Meteor.call('userKarma.update', toUpdate);
                 this.setState({ karma: 0, message: 'Limit 5' });
             } else {
                 this.setState({ karma: 0, message: 'Limit 5' });

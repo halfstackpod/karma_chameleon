@@ -1,12 +1,32 @@
-import { userKarma } from "../../api/userKarma";
-import { withTracker } from 'meteor/react-meteor-data';
+import React from 'react';
+import { Meteor } from 'meteor/meteor';
+import { Tracker } from 'meteor/tracker';
 
+import { userKarma } from "../../api/userKarma";
 import UserList from './UserList';
 
-const UserListContainer = withTracker(({}) => {
-    return {
-        userKarmaList:  userKarma.find().fetch()
-    };
-})(UserList);
+export default class  UserListContainer extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            userKarmaList: []
+        }
+    }
 
-export default UserListContainer;
+    componentDidMount() {
+        this.karmaTracker = Tracker.autorun(() => {
+            Meteor.subscribe('userKarmaPublish');
+            const userKarmaList = userKarma.find().fetch();
+            console.log(userKarmaList);
+            this.setState({ userKarmaList });
+        });
+    }
+
+    componentWillUnmount() {
+        this.karmaTracker.stop();
+    }
+    
+    render() {
+        return <UserList userKarmaList={this.state.userKarmaList} />
+    }
+}
