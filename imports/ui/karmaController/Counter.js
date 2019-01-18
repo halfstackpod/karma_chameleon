@@ -36,7 +36,7 @@ class Counter extends React.Component {
             inc: pointVal
         }
         Meteor.call('userKarma.update', toUpdate);
-        this.setState({ karma: 0, message: 'Limit 5', confirmation: `You gave ${this.props.user.name} ${pointVal} points` });
+        this.setState({ karma: 0, message: 'Limit 5', confirmation: `You gave ${this.props.user.alias} ${pointVal} points` });
     }
 
     handleSubmit = (e) => {
@@ -61,7 +61,7 @@ class Counter extends React.Component {
                     inc
                 }
                 Meteor.call('userKarma.update', toUpdate);
-                this.setState({ karma: 0, message: 'Limit 5', confirmation: `You gave ${this.props.user.name} ${inc} points` });
+                this.setState({ karma: 0, message: 'Limit 5', confirmation: `You gave ${this.props.user.alias} ${inc} points` });
             } else {
                 this.setState({ karma: 0, message: 'Limit 5', confirmation: '' });
             }
