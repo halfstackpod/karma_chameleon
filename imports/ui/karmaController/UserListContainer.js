@@ -47,10 +47,10 @@ export default class UserListContainer extends React.Component {
                     userKarmaList={this.state.userKarmaList}
                 />
                 <div className="TopUsers">
-                    <button type="button" onClick={this.getTopUsers}>
+                    <button className="ui secondary basic button" type="button" onClick={this.getTopUsers}>
                         Top Users!
                     </button>
-                    <button type="button" onClick={this.getBottomUsers}>
+                    <button className="ui secondary basic button" type="button" onClick={this.getBottomUsers}>
                         Bottom Users!
                     </button>
                 </div>
