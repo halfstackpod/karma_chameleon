@@ -1,0 +1,12 @@
+input[name='textKarma'] {
+    margin: 10px !important;
+    width: 75px;
+}
+
+.create-user-form-wrap {
+    margin-bottom: 25px !important;
+}
+
+.user-card .negative.button {
+    margin-top: 10px !important;
+}

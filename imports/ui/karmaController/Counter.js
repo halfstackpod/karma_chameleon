@@ -1,10 +1,11 @@
 import React from 'react';
 
+import '../styles/karma.css';
 import {userKarma} from '../../api/userKarma';
 import { Meteor } from 'meteor/meteor';
 
 class Counter extends React.Component {
-    state = { karma: 0, message: 'Limit 5' };
+    state = { karma: 0, message: 'Limit 5', confirmation: '' };
 
     isKarma = (val) => {
         return (val === "+" || val === "-");
@@ -16,14 +17,26 @@ class Counter extends React.Component {
 
     addPoint = () => {
         if (this.state.karma < 5) {
-            this.setState({ karma: this.state.karma += 1, message: this.state.karma });
+            this.setState({ karma: this.state.karma += 1, message: this.state.karma, confirmation: '' });
         }
     }
 
     subtractPoint = () => {
         if (this.state.karma > -5) {
-            this.setState({ karma: this.state.karma -= 1, message: this.state.karma });
+            this.setState({ karma: this.state.karma -= 1, message: this.state.karma, confirmation: '' });
         }
+    }
+
+    randomPoint = () => {
+        let pointVal = Math.floor(Math.random()*20) + 1; 
+        pointVal *= Math.floor(Math.random()*2) == 1 ? 1 : -1;
+
+        let toUpdate = {
+            _id: this.props.user._id,
+            inc: pointVal
+        }
+        Meteor.call('userKarma.update', toUpdate);
+        this.setState({ karma: 0, message: 'Limit 5', confirmation: `You gave ${this.props.user.name} ${pointVal} points` });
     }
 
     handleSubmit = (e) => {
@@ -48,9 +61,9 @@ class Counter extends React.Component {
                     inc
                 }
                 Meteor.call('userKarma.update', toUpdate);
-                this.setState({ karma: 0, message: 'Limit 5' });
+                this.setState({ karma: 0, message: 'Limit 5', confirmation: `You gave ${this.props.user.name} ${inc} points` });
             } else {
-                this.setState({ karma: 0, message: 'Limit 5' });
+                this.setState({ karma: 0, message: 'Limit 5', confirmation: '' });
             }
         }        
     }
@@ -59,12 +72,12 @@ class Counter extends React.Component {
         var currentValue = +event.target.value;
 
         if (isNaN(currentValue)) {
-            this.setState({ karma: currentValue, message: event.target.value });
+            this.setState({ karma: currentValue, message: event.target.value, confirmation: '' });
         } else {
             if (currentValue === 0) {
-                this.setState({ karma: 0, message: event.target.value });
+                this.setState({ karma: 0, message: event.target.value, confirmation: '' });
             } else {
-                this.setState({ karma: currentValue, message: currentValue });
+                this.setState({ karma: currentValue, message: currentValue, confirmation: '' });
             }
         }
     }
@@ -80,8 +93,9 @@ class Counter extends React.Component {
                     <input type="text" value={this.state.message} onChange={this.handleInputValue} name="textKarma"></input>
                 </div>
                 <button className="add ui positive basic button" type="button" onClick={this.addPoint}>+</button>
-
+                <button className="ui button yellow" onClick={this.randomPoint}>RANDOM</button>
                 <button className="apply ui primary button" type="submit">Apply</button>
+                <p>{this.state.confirmation}</p>
 
                 { isOwner &&
                     <button className="ui primary negative button" type="button" onClick={() => {userKarma.remove(this.props.user._id)}}>Remove Player</button>

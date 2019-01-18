@@ -1,6 +1,7 @@
 import React from 'react';
 
 import {userKarma} from '../../api/userKarma';
+import '../styles/karma.css';
 import { Meteor } from 'meteor/meteor';
 
 export default class AddUser extends React.Component {
@@ -33,15 +34,15 @@ export default class AddUser extends React.Component {
 
     render() {
         return (
-            <div>
-                <form onSubmit={this.handleSubmission.bind(this)}>
-                    <div>
+            <div className="ui four column grid create-user-form-wrap">
+                <form onSubmit={this.handleSubmission.bind(this)} className="ui form">
+                    <div className="field">
                         <input type="text" name="UserName" placeholder="User"></input>  
                     </div>
-                    <div>
+                    <div className="field">
                         <input type="text" name="Alias" placeholder="Nickname"></input>
                     </div>
-                    <button>Create User</button>
+                    <button className="ui button">Create User</button>
                 </form>
             </div>
         )
