@@ -1,17 +1,12 @@
 import React from 'react';
 
-export default class NameLink extends React.Component {
-
-    render() {
-        const names = this.props.userList.map((val) => {
-            return <li>{val}</li>
-        })
-        return (
-            <div>
-                <ul>
-                    {names}
-                </ul>
-            </div>
-        )
+const NameLink = (props) => {
+    if (props.userList && props.userList.length > 0) {
+        return names = props.userList.map((val, i) => {
+            return <li key={i}>{val}</li>
+        });
     }
+    return null;
 }
+
+export default NameLink;

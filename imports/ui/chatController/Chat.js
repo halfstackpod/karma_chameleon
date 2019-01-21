@@ -1,19 +1,17 @@
 import React from 'react';
 
-import {Message} from '../../api/chat'
+import {Message} from '../../api/chat';
 
-import NameLink from './NameLink'
-import ChatWindow from './ChatWindow'
-import ChatInput from './ChatInput'
+import ChatWindow from './ChatWindow';
+import ChatInput from './ChatInput';
+import { Meteor } from 'meteor/meteor';
 
 export default class Chat extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            isActive: false,
-            messages: [],
-            text: ""
+            messages: []
         }
     }
 
@@ -45,21 +43,10 @@ export default class Chat extends React.Component {
     }
 
     render() {
-        let showNames
-        const userNames = this.props.userKarmaList.map((user, i) => {
-            return user.alias
-        });
-        if (this.state.isActive) {
-            showNames = <NameLink userList={userNames}/>
-        }
         return (
             <div>
                 <ChatWindow messages={this.state.messages} />
-                <ChatInput 
-                    onChange={(e) => this.handleChange(e)}
-                />
-                <button onClick={this.submitMessage}>Submit</button>
-                {showNames}
+                <ChatInput userKarmaList={this.props.userKarmaList} />
             </div>
         )
     }

@@ -87,13 +87,13 @@ class Counter extends React.Component {
         var isOwner = this.checkOwner();
 
         return (
-            <form className="counter-wrap" onSubmit={this.handleSubmit.bind(this)}>
+            <form className="counter-wrap" onSubmit={this.handleSubmit}>
                 <button className="subtract ui negative basic button" type="button" onClick={this.subtractPoint}>—</button>
                 <div className="ui input">
                     <input type="text" value={this.state.message} onChange={this.handleInputValue} name="textKarma"></input>
                 </div>
                 <button className="add ui positive basic button" type="button" onClick={this.addPoint}>+</button>
-                <button className="ui button yellow" onClick={this.randomPoint}>RANDOM</button>
+                <button className="ui button yellow" type="button" onClick={this.randomPoint}>RANDOM</button>
                 <button className="apply ui primary button" type="submit">Apply</button>
                 <p>{this.state.confirmation}</p>
 

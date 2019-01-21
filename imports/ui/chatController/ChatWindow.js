@@ -7,7 +7,7 @@ export default class NameLink extends React.Component {
             return <div>{msg.text}</div>
         });
         return (
-            <div style={{width: '300px', height: '100px', border: "1px solid black"}}>
+            <div style={{width: '300px', height: '100px', border: '1px solid black', overflow: 'scroll'}}>
                 {messages}
             </div>
         )
