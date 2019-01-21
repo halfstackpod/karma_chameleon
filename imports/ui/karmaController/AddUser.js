@@ -17,8 +17,8 @@ export default class AddUser extends React.Component {
     }
 
     handleSubmission(e) {
-        let userName = e.target.UserName.value;
-        let alias = e.target.Alias.value;
+        let userName = e.target.UserName.value.trim();
+        let alias = e.target.Alias.value.trim();
 
         e.preventDefault();
 

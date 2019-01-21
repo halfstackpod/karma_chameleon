@@ -27,7 +27,7 @@ export default class ChatInput extends React.Component {
         e.preventDefault();
         let messageTime = new Date();
         let timestamp = 'at ' + (messageTime.getMonth() + 1) + `/${messageTime.getDate()}/${messageTime.getFullYear()} ${messageTime.getHours()}:${messageTime.getMinutes()}:`;
-        let messageText = this.state.text;
+        let messageText = this.state.text.trim();
         this.setState({ text: '' });
         Meteor.call('message.insert', {text: messageText, timestamp, author: Meteor.user().username});
     }
