@@ -1,6 +1,7 @@
 import React from 'react';
 
 import NameLink from './NameLink';
+import { Meteor } from 'meteor/meteor';
 
 export default class ChatInput extends React.Component {
     state = {
@@ -24,8 +25,11 @@ export default class ChatInput extends React.Component {
 
     submitMessage = (e) => {
         e.preventDefault();
+        let messageTime = new Date();
+        let timestamp = 'at ' + (messageTime.getMonth() + 1) + `/${messageTime.getDate()}/${messageTime.getFullYear()} ${messageTime.getHours()}:${messageTime.getMinutes()}:`;
+        let messageText = this.state.text;
         this.setState({ text: '' });
-        Meteor.call('message.insert', {text: this.state.text});
+        Meteor.call('message.insert', {text: messageText, timestamp, author: Meteor.user().username});
     }
 
     render() {

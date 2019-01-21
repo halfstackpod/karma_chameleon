@@ -11,7 +11,9 @@ if (Meteor.isServer) {
 Meteor.methods({
     'message.insert'(msg) {
         Message.insert({
-            text: msg.text
+            text: msg.text,
+            timestamp: msg.timestamp,
+            author: msg.author
         });
     }
 })
