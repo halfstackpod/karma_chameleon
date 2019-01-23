@@ -75,6 +75,31 @@ export default class Home extends React.Component {
             return u1.karma - u2.karma
         });
     }
+
+    getUserNames = () => {
+        return this.state.userKarmaList.map((user) => {
+            return user.alias;
+        });
+    }
+
+    handleChatKarmaChange = (text) => {
+        const karmaPattern = new RegExp(/@(\w+)([+-]+)/)
+        const karmaMatch = text.match(karmaPattern)
+        if (karmaMatch && karmaMatch.length > 2) {
+            const userName = karmaMatch[1]
+            if (this.getUserNames().indexOf(karmaMatch[1]) >= 0) {
+                const addsOrSubs = karmaMatch[2]
+                const userKarmaList = this.state.userKarmaList
+                userKarmaList.filter((user) => {
+                    if (user.alias === userName) {
+                        addsOrSubs[0] === '+' ? user.karma += addsOrSubs.length : user.karma -= addsOrSubs.length
+                        this.setState({userKarmaList: userKarmaList})
+                        return user
+                    }
+                });
+            }
+        }
+    }
     
     render() {
         return (
@@ -92,8 +117,11 @@ export default class Home extends React.Component {
                         />
                     </div>
                 </div>
-                <div style={{float: 'left', marginLeft: '150px'}}>
-                    <Chat userKarmaList={this.state.userKarmaList}/>
+                <div style={{float: 'left', marginLeft: '150px', width: '50%'}}>
+                    <Chat 
+                        userKarmaList={this.state.userKarmaList}
+                        onChatKarmaChange={this.handleChatKarmaChange}
+                    />
                 </div>
             </div>
         );

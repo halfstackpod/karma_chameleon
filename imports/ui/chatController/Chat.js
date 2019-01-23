@@ -44,9 +44,12 @@ export default class Chat extends React.Component {
 
     render() {
         return (
-            <div>
+            <div style={{position: 'relative'}}>
                 <ChatWindow messages={this.state.messages} />
-                <ChatInput userKarmaList={this.props.userKarmaList} />
+                <ChatInput 
+                    userKarmaList={this.props.userKarmaList}
+                    onChatKarmaChange={this.props.onChatKarmaChange}
+                />
             </div>
         )
     }

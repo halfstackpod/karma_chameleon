@@ -10,3 +10,8 @@ input[name='textKarma'] {
 .user-card .negative.button {
     margin-top: 10px !important;
 }
+
+.name-link:hover {
+    background: lightgray;
+    cursor: pointer;
+}
