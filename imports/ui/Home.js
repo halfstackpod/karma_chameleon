@@ -77,6 +77,17 @@ export default class Home extends React.Component {
         });
     }
 
+    conditionalRenderAddUser = () => {
+        if (this.state.userKarmaList.length > 0) {
+            let filtered = this.state.userKarmaList.filter((ele) => {
+                return ele.owner === Meteor.userId()
+            });
+            if (filtered.length ===0) {
+                return (<AddUser karma={0}/>)
+            }
+        }
+        return null
+
     getUserNames = () => {
         return this.state.userKarmaList.map((user) => {
             return user.alias;
@@ -100,6 +111,7 @@ export default class Home extends React.Component {
                 });
             }
         }
+
     }
     
     render() {
@@ -112,6 +124,13 @@ export default class Home extends React.Component {
                     <div className="loginForm">
                         <AccountsWrapper />     
                         <div style={{height: "45px"}}></div>
+                    </div>
+                    <div>
+                        {this.conditionalRenderAddUser()}
+                        <UserListContainer 
+                            userKarmaList={this.state.userKarmaList}
+                            onSort={(event) => this.handleSort(event)}
+                        />
                     </div>
                 </div>
                 <div className="ui container two column grid">
