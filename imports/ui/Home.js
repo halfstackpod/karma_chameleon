@@ -75,6 +75,18 @@ export default class Home extends React.Component {
             return u1.karma - u2.karma
         });
     }
+
+    conditionalRenderAddUser = () => {
+        if (this.state.userKarmaList.length > 0) {
+            let filtered = this.state.userKarmaList.filter((ele) => {
+                return ele.owner === Meteor.userId()
+            });
+            if (filtered.length ===0) {
+                return (<AddUser karma={0}/>)
+            }
+        }
+        return null
+    }
     
     render() {
         return (
@@ -85,7 +97,7 @@ export default class Home extends React.Component {
                         <div style={{height: "45px"}}></div>
                     </div>
                     <div>
-                        <AddUser karma={0}/>
+                        {this.conditionalRenderAddUser()}
                         <UserListContainer 
                             userKarmaList={this.state.userKarmaList}
                             onSort={(event) => this.handleSort(event)}
