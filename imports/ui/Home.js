@@ -124,7 +124,7 @@ export default class Home extends React.Component {
                         </div>
                     </div>
                     <div className="ui column">
-                        <Chat userKarmaList={this.state.userKarmaList}/>
+                        <Chat userKarmaList={this.state.userKarmaList} onChatKarmaChange={this.handleChatKarmaChange}/>
                     </div>
                 </div>
             </React.Fragment>
