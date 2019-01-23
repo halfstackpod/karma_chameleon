@@ -5,7 +5,8 @@ import AddUser from './karmaController/AddUser';
 
 import UserListContainer from './karmaController/UserListContainer';
 
-import Chat from './chatController/Chat'
+import Chat from './chatController/Chat';
+import './styles/karma.css';
 
 import { Meteor } from 'meteor/meteor';
 import { Tracker } from 'meteor/tracker';
@@ -103,27 +104,30 @@ export default class Home extends React.Component {
     
     render() {
         return (
-            <div className="ui container">
-                <div style={{float: 'left'}}>
+            <React.Fragment>
+                <div className="ui container grid">
+                    <AddUser karma={0}/>
+                </div>
+                <div className="ui container">
                     <div className="loginForm">
                         <AccountsWrapper />     
                         <div style={{height: "45px"}}></div>
                     </div>
-                    <div>
-                        <AddUser karma={0}/>
-                        <UserListContainer 
-                            userKarmaList={this.state.userKarmaList}
-                            onSort={(event) => this.handleSort(event)}
-                        />
+                </div>
+                <div className="ui container two column grid">
+                    <div className="ui column">                        
+                        <div>                        
+                            <UserListContainer 
+                                userKarmaList={this.state.userKarmaList}
+                                onSort={(event) => this.handleSort(event)}
+                            />
+                        </div>
+                    </div>
+                    <div className="ui column">
+                        <Chat userKarmaList={this.state.userKarmaList}/>
                     </div>
                 </div>
-                <div style={{float: 'left', marginLeft: '150px', width: '50%'}}>
-                    <Chat 
-                        userKarmaList={this.state.userKarmaList}
-                        onChatKarmaChange={this.handleChatKarmaChange}
-                    />
-                </div>
-            </div>
+            </React.Fragment>
         );
     }
 };

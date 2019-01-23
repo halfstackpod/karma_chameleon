@@ -34,7 +34,7 @@ export default class AddUser extends React.Component {
 
     render() {
         return (
-            <div className="ui four column grid create-user-form-wrap">
+            <div className="ui column six wide create-user-form-wrap">
                 <form onSubmit={this.handleSubmission.bind(this)} className="ui form">
                     <div className="field">
                         <input type="text" name="UserName" placeholder="User"></input>  
