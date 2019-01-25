@@ -33,6 +33,9 @@ export default class AddUser extends React.Component {
     }
 
     render() {
+        if (this.props.display === "none") {
+            return null;
+        }
         return (
             <div className="ui column six wide create-user-form-wrap">
                 <form onSubmit={this.handleSubmission.bind(this)} className="ui form">

@@ -82,11 +82,13 @@ export default class Home extends React.Component {
             let filtered = this.state.userKarmaList.filter((ele) => {
                 return ele.owner === Meteor.userId()
             });
-            if (filtered.length ===0) {
-                return (<AddUser karma={0}/>)
+            if (filtered.length === 0) {
+                return (<AddUser karma={0} />)
+            } else {
+                return (<AddUser display={"none"} />)
             }
         }
-        return null
+    }
 
     getUserNames = () => {
         return this.state.userKarmaList.map((user) => {
@@ -125,8 +127,10 @@ export default class Home extends React.Component {
                         <AccountsWrapper />     
                         <div style={{height: "45px"}}></div>
                     </div>
-                    <div>
+                    <div className="newKarmaUser">
                         {this.conditionalRenderAddUser()}
+                    </div>
+                    <div>
                         <UserListContainer 
                             userKarmaList={this.state.userKarmaList}
                             onSort={(event) => this.handleSort(event)}
