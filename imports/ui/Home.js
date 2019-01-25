@@ -119,26 +119,15 @@ export default class Home extends React.Component {
     render() {
         return (
             <React.Fragment>
-                <div className="ui container grid">
-                    <AddUser karma={0}/>
-                </div>
-                <div className="ui container">
-                    <div className="loginForm">
-                        <AccountsWrapper />     
-                        <div style={{height: "45px"}}></div>
-                    </div>
-                    <div className="newKarmaUser">
-                        {this.conditionalRenderAddUser()}
-                    </div>
-                    <div>
-                        <UserListContainer 
-                            userKarmaList={this.state.userKarmaList}
-                            onSort={(event) => this.handleSort(event)}
-                        />
-                    </div>
+                <div className="ui container grid newKarmaUser">
+                    {this.conditionalRenderAddUser()}
                 </div>
                 <div className="ui container two column grid">
-                    <div className="ui column">                        
+                    <div className="ui column">
+                        <div className="loginForm">
+                            <AccountsWrapper />     
+                            <div style={{height: "45px"}}></div>
+                        </div>                      
                         <div>                        
                             <UserListContainer 
                                 userKarmaList={this.state.userKarmaList}
