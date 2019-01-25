@@ -1,6 +1,5 @@
 import React from 'react';
 
-import {userKarma} from '../../api/userKarma';
 import '../styles/karma.css';
 import { Meteor } from 'meteor/meteor';
 

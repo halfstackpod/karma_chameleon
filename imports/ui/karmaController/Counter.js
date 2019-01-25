@@ -1,7 +1,6 @@
 import React from 'react';
 
 import '../styles/karma.css';
-import {userKarma} from '../../api/userKarma';
 import { Meteor } from 'meteor/meteor';
 
 class Counter extends React.Component {

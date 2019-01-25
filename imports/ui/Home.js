@@ -119,10 +119,8 @@ export default class Home extends React.Component {
         return (
             <React.Fragment>
                 <div className="logout ui container two column grid">
-                    {/* <Logout /> */}
                 </div>
                 <div className="ui two column newKarmaUser">
-                {/* TODO get  this to display nicely */}
                     {this.conditionalRenderAddUser()}
                 </div>
                 <div className="ui container two column grid">

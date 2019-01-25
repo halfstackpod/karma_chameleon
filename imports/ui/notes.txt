@@ -1,1 +1,0 @@
-Probably don't need the signup.js file because the meteor template allows for both signup and registration

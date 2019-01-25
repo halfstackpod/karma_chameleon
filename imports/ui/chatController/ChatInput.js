@@ -46,7 +46,7 @@ export default class ChatInput extends React.Component {
     }
 
     handleNameLinkClick = (e) => {
-        var textWithName = this.state.text + e.target.textContent
+        const textWithName = this.state.text + e.target.textContent
         this.setState({text: textWithName, isActive: false})
     }
 
