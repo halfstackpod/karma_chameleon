@@ -42,5 +42,9 @@ Meteor.methods({
 
     'userKarma.update' (karmaUpdate) {
         userKarma.update( karmaUpdate._id, { $inc: { karma: karmaUpdate.inc }})
+    },
+
+    'userKarma.remove' (user) {
+        userKarma.remove(user._id)
     }
 });

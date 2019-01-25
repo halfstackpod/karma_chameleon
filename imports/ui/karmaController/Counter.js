@@ -84,7 +84,7 @@ class Counter extends React.Component {
 
     render() {
 
-        var isOwner = this.checkOwner();
+        const isOwner = this.checkOwner();
 
         return (
             <form className="counter-wrap" onSubmit={this.handleSubmit}>
@@ -98,7 +98,10 @@ class Counter extends React.Component {
                 <p>{this.state.confirmation}</p>
 
                 { isOwner &&
-                    <button className="ui primary negative button" type="button" onClick={() => {userKarma.remove(this.props.user._id)}}>Remove Player</button>
+                    <button className="ui primary negative button" type="button" onClick={() => {
+                        Meteor.call('userKarma.remove', this.props.user)} } 
+                    >
+                    Remove Player</button>
                 }
                 <hr></hr>
                 <div></div>

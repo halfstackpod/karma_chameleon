@@ -1,6 +1,5 @@
 import React from 'react';
 
-import AccountsWrapper from "./AccountsWrapper";
 import AddUser from './karmaController/AddUser';
 
 import UserListContainer from './karmaController/UserListContainer';
@@ -119,26 +118,15 @@ export default class Home extends React.Component {
     render() {
         return (
             <React.Fragment>
-                <div className="ui container grid">
-                    <AddUser karma={0}/>
+                <div className="logout ui container two column grid">
+                    {/* <Logout /> */}
                 </div>
-                <div className="ui container">
-                    <div className="loginForm">
-                        <AccountsWrapper />     
-                        <div style={{height: "45px"}}></div>
-                    </div>
-                    <div className="newKarmaUser">
-                        {this.conditionalRenderAddUser()}
-                    </div>
-                    <div>
-                        <UserListContainer 
-                            userKarmaList={this.state.userKarmaList}
-                            onSort={(event) => this.handleSort(event)}
-                        />
-                    </div>
+                <div className="ui two column newKarmaUser">
+                {/* TODO get  this to display nicely */}
+                    {this.conditionalRenderAddUser()}
                 </div>
                 <div className="ui container two column grid">
-                    <div className="ui column">                        
+                    <div className="ui column">                    
                         <div>                        
                             <UserListContainer 
                                 userKarmaList={this.state.userKarmaList}
