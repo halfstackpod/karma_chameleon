@@ -22,3 +22,4 @@ accounts-github
 service-configuration
 github-config-ui
 react-meteor-data
+momentjs:moment
