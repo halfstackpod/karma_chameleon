@@ -25,8 +25,8 @@ export default class ChatInput extends React.Component {
 
     submitMessage = (e) => {
         e.preventDefault();
-        let messageTime = new Date();
-        let timestamp = 'at ' + (messageTime.getMonth() + 1) + `/${messageTime.getDate()}/${messageTime.getFullYear()} ${messageTime.getHours()}:${messageTime.getMinutes()}:`;
+        const formatedTime = moment().format('l h:mm');
+        const timestamp = 'at ' + formatedTime + `:`;
         let messageText = this.state.text.trim();
         this.setState({ text: '' });
         Meteor.call('message.insert', {text: messageText, timestamp, author: Meteor.user().username});
@@ -46,7 +46,7 @@ export default class ChatInput extends React.Component {
     }
 
     handleNameLinkClick = (e) => {
-        var textWithName = this.state.text + e.target.textContent
+        const textWithName = this.state.text + e.target.textContent
         this.setState({text: textWithName, isActive: false})
     }
 

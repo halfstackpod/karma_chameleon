@@ -1,6 +1,5 @@
 import React from 'react';
 
-import {userKarma} from '../../api/userKarma';
 import '../styles/karma.css';
 import { Meteor } from 'meteor/meteor';
 
@@ -34,7 +33,7 @@ export default class AddUser extends React.Component {
 
     render() {
         if (this.props.display === "none") {
-            return null;
+            return (<div></div>)
         }
         return (
             <div className="ui column six wide create-user-form-wrap">
