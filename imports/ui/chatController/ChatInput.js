@@ -34,11 +34,15 @@ export default class ChatInput extends React.Component {
     }
 
     renderUserList = () => {
+        // TODO: change so key is _id
+        const nameLinks = this.state.userList.map((name, i) => {
+            return <NameLink key={name} name={name} onNameLinkClick={this.handleNameLinkClick}/>
+        });
         if (this.state.isActive) {
             return (
                 <div style={{position: 'absolute', zIndex: 1, border: '1px solid black', background: 'white', left: '30px', bottom: '74px'}}>
                     <ul style={{listStyle: 'none', padding: '0px 10px'}}>
-                        <NameLink userList={this.state.userList} onNameLinkClick={this.handleNameLinkClick}/>
+                        {nameLinks}
                     </ul>
                 </div>
             )

@@ -11,7 +11,7 @@ const TitleBar = () => {
 
                 <h3>Enjoy your stay and don't overflow the int</h3>
             </div>
-            <div className="logout">
+            <div className="ui container logout">
                 <Logout />
             </div>
         </div>

@@ -1,15 +1,20 @@
 import React from 'react';
 
-export default class NameLink extends React.Component {
+Message = (props) => {
+    return (
+        <div>
+            <span style={{fontWeight: 'bold'}}>{props.msg.author} </span>
+            <span>{props.msg.timestamp} </span>
+            <span> {props.msg.text}</span>
+        </div>
+    )
+}
+export default class ChatWindow extends React.Component {
 
     render() {
         let messages = this.props.messages.map((msg) => {
             return (
-                <div>
-                    <span style={{fontWeight: 'bold'}}>{msg.author} </span>
-                    <span>{msg.timestamp} </span>
-                    <span> {msg.text}</span>
-                </div>
+                <Message key={msg._id} msg={msg} />
             );
         });
         return (
