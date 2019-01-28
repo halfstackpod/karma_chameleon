@@ -1,16 +1,16 @@
 import React from 'react';
 
 import AddUser from './karmaController/AddUser';
-
 import UserListContainer from './karmaController/UserListContainer';
-
 import Chat from './chatController/Chat';
-import './styles/karma.css';
+import RoomContainer from './roomController/RoomContainer'
 
 import { Meteor } from 'meteor/meteor';
 import { Tracker } from 'meteor/tracker';
 
 import { userKarma } from "../api/userKarma";
+
+import './styles/karma.css';
 export default class Home extends React.Component {
     constructor(props) {
         super(props);
@@ -118,12 +118,15 @@ export default class Home extends React.Component {
     render() {
         return (
             <React.Fragment>
-                <div className="logout ui container two column grid">
+                <div className="ui container three column grid newKarmaUser">
+                    <div className="ui column">
+                        {this.conditionalRenderAddUser()}
+                    </div>
                 </div>
-                <div className="ui two column newKarmaUser">
-                    {this.conditionalRenderAddUser()}
-                </div>
-                <div className="ui container two column grid">
+                <div className="ui container three column grid">
+                    <div className="ui column">
+                        <RoomContainer userKarmaList={this.state.userKarmaList}/>
+                    </div>
                     <div className="ui column">                    
                         <div>                        
                             <UserListContainer 
