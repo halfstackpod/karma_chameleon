@@ -11,22 +11,21 @@ export default class RoomList extends React.Component {
         }
     }
 
-    componentDidMount() {
-        this.state.activeRoom = this.props.rooms.length > 0 ? this.props.rooms.length[0]._id : ""
-    }
-
-    handleClick = (room) => {
-        this.setState({activeRoom: room})
-        console.log(room)
-    }
+    // componentDidMount() {
+    //     this.state.activeRoom = this.props.rooms.length > 0 ? this.props.rooms.length[0]._id : ""
+    // }
 
     render() {
-        return this.props.rooms.map((room) => {
-            return <Room 
-                key={room._id}
-                room={room}
-                onClick={this.handleClick}
-            />
-        })
+        if (this.props.rooms) {
+            return this.props.rooms.map((room) => {
+                return <Room 
+                    key={room._id}
+                    room={room}
+                    onRoomClick={this.props.onRoomClick}
+                />
+            })
+        } else {
+            return "JOIN A ROOM!"
+        }
     }
 }

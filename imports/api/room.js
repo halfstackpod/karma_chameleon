@@ -25,7 +25,8 @@ Meteor.methods({
             owner: data.owner,
             private: data.private,
             name: data.name,
-            members: data.members
+            members: data.members,
+            messages: []
         })
     },
     'room.join'(data) {
@@ -34,6 +35,18 @@ Meteor.methods({
         })
         userKarma.update({_id: Meteor.userId()}, {
             $addToSet: {rooms: data.roomName}
+        })
+    },
+    'room.message.create'(data) {
+        Room.update({_id: data.roomId}, {
+            $addToSet: {
+                messages: {
+                    text: data.msg.text,
+                    timestamp: data.msg.timestamp,
+                    author: data.msg.author,
+                    epoch: data.msg.epoch
+                }
+            }
         })
     }
 })

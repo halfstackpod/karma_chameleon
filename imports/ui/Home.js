@@ -9,6 +9,7 @@ import { Meteor } from 'meteor/meteor';
 import { Tracker } from 'meteor/tracker';
 
 import { userKarma } from "../api/userKarma";
+import { Room } from "../api/room"
 
 import './styles/karma.css';
 export default class Home extends React.Component {
@@ -16,7 +17,9 @@ export default class Home extends React.Component {
         super(props);
         this.state = {
             userKarmaList: [],
-            sorted: ""
+            sorted: "",
+            activeRoom: "",
+            rooms: ""
         }
     }
 
@@ -26,10 +29,19 @@ export default class Home extends React.Component {
             const userKarmaList = this.sortUsers(userKarma.find().fetch(), this.state.sorted);
             this.setState({ userKarmaList });
         });
+
+        this.roomTracker = Tracker.autorun(() => {
+            Meteor.subscribe('room')
+            const rooms = Room.find().fetch()
+            console.log("ROOMS:" + rooms)
+            const activeRoom = rooms[0]
+            this.setState({ rooms, activeRoom })
+        });
     }
 
     componentWillUnmount() {
         this.karmaTracker.stop();
+        this.roomTracker.stop();
     }
 
     handleSort = (event) => {
@@ -114,6 +126,11 @@ export default class Home extends React.Component {
         }
 
     }
+
+    handleRoomClick = (room) => {
+        this.setState({activeRoom: room})
+        console.log(room)
+    }
     
     render() {
         return (
@@ -125,7 +142,12 @@ export default class Home extends React.Component {
                 </div>
                 <div className="ui container three column grid">
                     <div className="ui column">
-                        <RoomContainer userKarmaList={this.state.userKarmaList}/>
+                        <RoomContainer 
+                            userKarmaList={this.state.userKarmaList}
+                            activeRoom={this.state.activeRoom}
+                            rooms={this.state.rooms} 
+                            onRoomClick={this.handleRoomClick}
+                        />
                     </div>
                     <div className="ui column">                    
                         <div>                        
@@ -136,7 +158,7 @@ export default class Home extends React.Component {
                         </div>
                     </div>
                     <div className="ui column">
-                        <Chat userKarmaList={this.state.userKarmaList} onChatKarmaChange={this.handleChatKarmaChange}/>
+                        <Chat userKarmaList={this.state.userKarmaList} activeRoom={this.state.activeRoom} onChatKarmaChange={this.handleChatKarmaChange}/>
                     </div>
                 </div>
             </React.Fragment>

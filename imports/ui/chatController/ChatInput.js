@@ -29,7 +29,15 @@ export default class ChatInput extends React.Component {
         const timestamp = 'at ' + formatedTime + `:`;
         let messageText = this.state.text.trim();
         this.setState({ text: '' });
-        Meteor.call('message.insert', {text: messageText, timestamp, author: Meteor.user().username});
+        Meteor.call('room.message.create', {
+            roomId: this.props.room._id,
+            msg: {
+                text: messageText, 
+                timestamp: timestamp, 
+                author: Meteor.user().username,
+                epoch: Date.now()
+            }
+        });
         this.props.onChatKarmaChange(this.state.text);
     }
 

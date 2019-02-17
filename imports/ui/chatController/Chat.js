@@ -1,31 +1,9 @@
 import React from 'react';
 
-import {Message} from '../../api/chat';
-
 import ChatWindow from './ChatWindow';
 import ChatInput from './ChatInput';
-import { Meteor } from 'meteor/meteor';
 
 export default class Chat extends React.Component {
-
-    constructor(props) {
-        super(props);
-        this.state = {
-            messages: []
-        }
-    }
-
-    componentDidMount() {
-        this.chatTracker = Tracker.autorun(() => {
-            Meteor.subscribe('message');
-            const messages = Message.find().fetch();
-            this.setState({ messages: messages });
-        });
-    }
-
-    componentWillUnmount() {
-        this.chatTracker.stop();
-    }
 
     handleFocus = () => {
         this.setState({isActive: true})
@@ -37,18 +15,14 @@ export default class Chat extends React.Component {
         this.setState({ text: curText })
     }
 
-    submitMessage = () => {
-        this.setState({ text: "" })
-        Meteor.call('message.insert', {text: this.state.text})
-    }
-
     render() {
         return (
             <div style={{position: 'relative'}}>
-                <ChatWindow messages={this.state.messages} />
+                <ChatWindow room={this.props.activeRoom} />
                 <ChatInput 
                     userKarmaList={this.props.userKarmaList}
                     onChatKarmaChange={this.props.onChatKarmaChange}
+                    room={this.props.activeRoom}
                 />
             </div>
         )

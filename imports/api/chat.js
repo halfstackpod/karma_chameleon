@@ -14,21 +14,21 @@ const chatSchema = new SimpleSchema({
 
 const newMessageValidationContext = chatSchema.namedContext('newMessageSubmission');
 
-if (Meteor.isServer) {
-    Meteor.publish('message', function () {
-        return Message.find( {} );
-    });
-}
+// if (Meteor.isServer) {
+//     Meteor.publish('message', function () {
+//         return Message.find( {} );
+//     });
+// }
 
-Meteor.methods({
-    'message.insert'(msg) {
+// Meteor.methods({
+//     'message.insert'(msg) {
 
-        if (newMessageValidationContext.validate(msg)) {
-            Message.insert({
-                text: msg.text,
-                timestamp: msg.timestamp,
-                author: msg.author
-            });
-        }
-    }
-})
+//         if (newMessageValidationContext.validate(msg)) {
+//             Message.insert({
+//                 text: msg.text,
+//                 timestamp: msg.timestamp,
+//                 author: msg.author
+//             });
+//         }
+//     }
+// })
