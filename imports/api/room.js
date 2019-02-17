@@ -1,5 +1,6 @@
 import {Mongo} from 'meteor/mongo';
-import SimpleSchema from 'simpl-schema';
+
+import {userKarma} from './userKarma'
 
 export const Room = new Mongo.Collection("room");
 
@@ -28,6 +29,11 @@ Meteor.methods({
         })
     },
     'room.join'(data) {
-        Room.update(data._id);
+        Room.update({name: data.roomName}, {
+            $addToSet: {members: data.userId}
+        })
+        userKarma.update({_id: Meteor.userId()}, {
+            $addToSet: {rooms: data.roomName}
+        })
     }
 })

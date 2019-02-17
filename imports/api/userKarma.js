@@ -16,6 +16,8 @@ const userSchema = new SimpleSchema({
         max: 255
     },
     karma: SimpleSchema.Integer,
+    rooms: Array,
+    'rooms.$': String, 
     owner: String
 });
 
@@ -29,12 +31,12 @@ if (Meteor.isServer) {
 
 Meteor.methods({
     'userKarma.insert' (newUser) {
-
         if (newUserValidationContext.validate(newUser)) {
             userKarma.insert({
                 name: newUser.name,
                 alias: newUser.alias || newUser.name,
                 karma: newUser.karma,
+                rooms: [],
                 owner: newUser.owner
             });
         }
