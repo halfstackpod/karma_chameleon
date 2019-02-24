@@ -13,4 +13,4 @@ Navaigate in a browser to `http://localhost:3000`
 
 Welcome to Karma Chameleon.
 
-Currently github authentication needs to be validated on each server locally so create an account using the default sign up process
+We are working on getting heroku hosting now!
