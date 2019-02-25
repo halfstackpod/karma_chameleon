@@ -1,19 +1,11 @@
 import React from 'react';
-
 import Room from './Room'
 
 export default class RoomList extends React.Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            activeRoom: {}
-        }
+    isActiveRoom = (id) => {
+        return id === this.props.activeRoom._id
     }
-
-    // componentDidMount() {
-    //     this.state.activeRoom = this.props.rooms.length > 0 ? this.props.rooms.length[0]._id : ""
-    // }
 
     render() {
         if (this.props.rooms) {
@@ -22,6 +14,7 @@ export default class RoomList extends React.Component {
                     key={room._id}
                     room={room}
                     onRoomClick={this.props.onRoomClick}
+                    activeRoom={this.isActiveRoom(room._id)}
                 />
             })
         } else {

@@ -1,5 +1,6 @@
 import {Mongo} from 'meteor/mongo';
 import SimpleSchema from 'simpl-schema';
+import { Room } from './room'
 
 export const userKarma = new Mongo.Collection("userKarma");
 
@@ -16,16 +17,24 @@ const userSchema = new SimpleSchema({
         max: 255
     },
     karma: SimpleSchema.Integer,
-    rooms: Array,
-    'rooms.$': String, 
+    rooms: {
+        type: Array,
+        optional: true
+    },
+    'rooms.$': {
+        type: String, 
+        optional: true
+    },
     owner: String
 });
 
 const newUserValidationContext = userSchema.namedContext('newUserForm');
 
 if (Meteor.isServer) {
-    Meteor.publish('userKarmaPublish', function () {
-        return userKarma.find( {} );
+    Meteor.publish('userKarmaPublish', function(roomId) {
+        const room = Room.findOne({_id: roomId}, {fields: {members: 1}})
+        const members = room.members;
+        return userKarma.find( {owner: {$in: members}} );
     });
 }
 

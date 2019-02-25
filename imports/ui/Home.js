@@ -24,23 +24,20 @@ export default class Home extends React.Component {
     }
 
     componentDidMount() {
-        this.karmaTracker = Tracker.autorun(() => {
-            Meteor.subscribe('userKarmaPublish');
-            const userKarmaList = this.sortUsers(userKarma.find().fetch(), this.state.sorted);
-            this.setState({ userKarmaList });
-        });
-
         this.roomTracker = Tracker.autorun(() => {
-            Meteor.subscribe('room')
+            Meteor.subscribe('room', Meteor.userId())
             const rooms = Room.find().fetch()
-            console.log("ROOMS:" + rooms)
-            const activeRoom = rooms[0]
+            const activeRoom = this.state.activeRoom ? Room.findOne({_id: this.state.activeRoom._id}) : rooms[0]
             this.setState({ rooms, activeRoom })
+            if (this.state.activeRoom) {
+                Meteor.subscribe('userKarmaPublish', this.state.activeRoom._id);
+                const userKarmaList = this.sortUsers(userKarma.find().fetch(), this.state.sorted);
+                this.setState({ userKarmaList });
+            }
         });
     }
 
     componentWillUnmount() {
-        this.karmaTracker.stop();
         this.roomTracker.stop();
     }
 

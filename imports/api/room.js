@@ -14,8 +14,9 @@ export const Room = new Mongo.Collection("room");
 // TOOD: validation like in chat?
 
 if (Meteor.isServer) {
-    Meteor.publish('room', function () {
-        return Room.find( {} );
+    Meteor.publish('room', function(userId) {
+        const user = userKarma.findOne({owner: userId}, {fields: {rooms: 1}})
+        return Room.find( {name: {$in: user.rooms}} )
     });
 }
 
@@ -33,7 +34,7 @@ Meteor.methods({
         Room.update({name: data.roomName}, {
             $addToSet: {members: data.userId}
         })
-        userKarma.update({_id: Meteor.userId()}, {
+        userKarma.update({owner: Meteor.userId()}, {
             $addToSet: {rooms: data.roomName}
         })
     },

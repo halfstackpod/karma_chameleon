@@ -15,3 +15,7 @@ input[name='textKarma'] {
     background: lightgray;
     cursor: pointer;
 }
+
+.active {
+    background: darkgreen;
+}
